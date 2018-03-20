@@ -131,7 +131,7 @@ end
 
 def get_current_version
   current_version = nil
-  File.foreach("VisaCheckout/build.gradle") do |line|
+  File.foreach("build.gradle") do |line|
     if match = line.match(/version = '(\d+\.\d+\.\d+(-SNAPSHOT)?)'/)
       current_version = match.captures
     end
@@ -142,19 +142,19 @@ end
 
 def increment_version_code
   new_build_file = ""
-  File.foreach("VisaCheckout/build.gradle") do |line|
+  File.foreach("build.gradle") do |line|
     if line.match(/versionCode = (\d+)/)
       new_build_file += line.gsub(/versionCode = \d+/, "versionCode = #{$1.to_i + 1}")
     else
       new_build_file += line
     end
   end
-  IO.write('VisaCheckout/build.gradle', new_build_file)
+  IO.write('build.gradle', new_build_file)
 end
 
 def update_version(version)
-  IO.write("VisaCheckout/build.gradle",
-    File.open("VisaCheckout/build.gradle") do |file|
+  IO.write("build.gradle",
+    File.open("build.gradle") do |file|
       file.read.gsub(/version = '\d+\.\d+\.\d+(-SNAPSHOT)?'/, "version = '#{version}'")
     end
   )
@@ -163,7 +163,7 @@ end
 def update_readme_version(version)
   IO.write("README.md",
     File.open("README.md") do |file|
-      file.read.gsub(/:braintree:\d+\.\d+\.\d+'/, ":visa-checkout:#{version}'")
+      file.read.gsub(/:visa-checkout:\d+\.\d+\.\d+'/, ":visa-checkout:#{version}'")
     end
   )
 end
@@ -171,7 +171,7 @@ end
 def update_readme_snapshot_version(snapshot_version)
   IO.write("README.md",
     File.open("README.md") do |file|
-      file.read.gsub(/:braintree:\d+\.\d+\.\d+-SNAPSHOT'/, ":visa-checkout:#{snapshot_version}-SNAPSHOT'")
+      file.read.gsub(/:visa-checkout:\d+\.\d+\.\d+-SNAPSHOT'/, ":visa-checkout:#{snapshot_version}-SNAPSHOT'")
     end
   )
 end

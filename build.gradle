@@ -24,4 +24,10 @@ allprojects {
             url 'https://oss.sonatype.org/content/repositories/snapshots/'
         }
     }
+
+    version = '0.1.0'
+    ext {
+      versionCode = 1
+      versionName = version
+    }
 }
