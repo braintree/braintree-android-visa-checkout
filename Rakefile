@@ -19,7 +19,7 @@ desc "Publish current version as a SNAPSHOT"
 task :publish_snapshot => :unit_tests do
   abort("Version must contain '-SNAPSHOT'!") unless get_current_version.end_with?('-SNAPSHOT')
 
-  puts "Ensure all tests are passing (`rake tests`)."
+  puts "Ensure all tests are passing (`rake`)."
   $stdin.gets
 
   prompt_for_sonatype_username_and_password
@@ -29,7 +29,7 @@ end
 
 desc "Interactive release to publish new version"
 task :release => :unit_tests do
-  puts "Ensure all tests are passing (`rake tests`)."
+  puts "Ensure all tests are passing (`rake`)."
   $stdin.gets
 
   puts "What version are you releasing? (x.x.x format)"
@@ -48,11 +48,7 @@ end
 
 task :release_braintree_visa_checkout do
   sh "./gradlew clean :VisaCheckout:uploadArchives"
-  sh "./gradlew :VisaCheckout:closeRepository"
-  puts "Sleeping for one minute to allow Braintree Visa Checkout module to close"
-  sleep 60
-  sh "./gradlew :VisaCheckout:promoteRepository"
-  puts "Sleeping for ten minutes to allow Braintree Visa Checkout module to be promoted"
+  sh "./gradlew :VisaCheckout:closeAndReleaseRepository"
   sleep 600
   puts "Braintree visa checkout module have been released"
 end
