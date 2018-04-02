@@ -28,7 +28,7 @@ task :publish_snapshot => :unit_tests do
 end
 
 desc "Interactive release to publish new version"
-task :release do
+task :release => :unit_tests do
   puts "Ensure all tests are passing (`rake`)."
   $stdin.gets
 
@@ -117,11 +117,6 @@ def post_release(version)
   sh "git push origin master #{version}"
 
   puts "\nPushed to GHE! Press ENTER to push to public Github."
-  $stdin.gets
-
-  sh "git push github master #{version}"
-
-  puts "\nUpdate the releases tab on GitHub and send a release notification email to braintree-sdk-announce@googlegroups.com. Press ENTER when done."
   $stdin.gets
 end
 
