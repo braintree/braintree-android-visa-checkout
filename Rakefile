@@ -28,7 +28,7 @@ task :publish_snapshot => :unit_tests do
 end
 
 desc "Interactive release to publish new version"
-task :release => :unit_tests do
+task :release do
   puts "Ensure all tests are passing (`rake`)."
   $stdin.gets
 
@@ -48,7 +48,7 @@ end
 
 task :release_braintree_visa_checkout do
   sh "./gradlew clean :VisaCheckout:uploadArchives"
-  sh "./gradlew :VisaCheckout:closeAndReleaseRepository"
+  sh "./gradlew closeAndReleaseRepository"
   sleep 600
   puts "Braintree visa checkout module have been released"
 end
@@ -149,8 +149,8 @@ def increment_version_code
 end
 
 def update_version(version)
-  IO.write("build.gradle",
-    File.open("build.gradle") do |file|
+  IO.write("VisaCheckout/build.gradle",
+    File.open("VisaCheckout/build.gradle") do |file|
       file.read.gsub(/version = '\d+\.\d+\.\d+(-SNAPSHOT)?'/, "version = '#{version}'")
     end
   )
