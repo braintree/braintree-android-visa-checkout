@@ -1,4 +1,5 @@
 # Braintree Android Visa Checkout
+[![Build Status](https://travis-ci.org/braintree/braintree-android-visa-checkout.svg?branch=master)](https://travis-ci.org/braintree/braintree-android-visa-checkout.svg?branch=master)
 
 Braintree Android Visa Checkout is a module that allows you to accept Visa Checkout payments in your Android app. It is used in conjunction with Braintree Android SDK.
 
