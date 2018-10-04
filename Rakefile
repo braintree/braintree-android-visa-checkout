@@ -144,8 +144,8 @@ def increment_version_code
 end
 
 def update_version(version)
-  IO.write("VisaCheckout/build.gradle",
-    File.open("VisaCheckout/build.gradle") do |file|
+  IO.write("build.gradle",
+    File.open("build.gradle") do |file|
       file.read.gsub(/version = '\d+\.\d+\.\d+(-SNAPSHOT)?'/, "version = '#{version}'")
     end
   )
