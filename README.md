@@ -11,7 +11,7 @@ Add the dependency in your `build.gradle`:
 
 ```groovy
 dependencies {
-  compile 'com.braintreepayments.api:visa-checkout:1.0.0'
+  compile 'com.braintreepayments.api:visa-checkout:2.0.0'
 }
 ```
 
