@@ -25,4 +25,10 @@ allprojects {
     }
 }
 
+version = '2.0.0-SNAPSHOT'
+ext {
+  versionCode = 3
+  versionName = version
+}
+
 apply plugin: 'io.codearte.nexus-staging'
