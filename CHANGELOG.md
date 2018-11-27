@@ -1,5 +1,9 @@
 # Braintree Android Visa Checkout SDK Release Notes
 
+## 2.0.1
+
+* Update Visa Checkout to 6.6.1
+
 ## 2.0.0
 
 * Update Android SDK to 28
