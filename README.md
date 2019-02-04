@@ -19,7 +19,7 @@ To use the latest build from the `master` branch use:
 
 ```groovy
 dependencies {
-  compile 'com.braintreepayments.api:visa-checkout:2.0.2-SNAPSHOT'
+  compile 'com.braintreepayments.api:visa-checkout:3.0.1-SNAPSHOT'
 }
 ```
 
