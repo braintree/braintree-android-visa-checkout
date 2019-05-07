@@ -4,13 +4,13 @@ apply plugin: 'signing'
 
 android {
     buildToolsVersion '28.0.3'
-    compileSdkVersion 28
+    compileSdkVersion 'android-Q'
 
     dataBinding.enabled = true
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 28
+        targetSdkVersion 'Q'
         versionCode = rootProject.ext.versionCode
         versionName = rootProject.ext.versionName
 
