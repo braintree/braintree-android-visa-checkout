@@ -9,7 +9,7 @@ android {
     dataBinding.enabled = true
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode = rootProject.ext.versionCode
         versionName = rootProject.ext.versionName
