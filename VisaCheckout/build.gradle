@@ -8,8 +8,6 @@ android {
     compileSdkVersion rootProject.compileSdkVersion
     buildToolsVersion '29.0.3'
 
-    dataBinding.enabled = true
-
     defaultConfig {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
@@ -17,6 +15,10 @@ android {
         versionName rootProject.versionName
 
         consumerProguardFiles 'proguard.pro'
+    }
+
+    buildFeatures {
+        dataBinding true
     }
 
     lintOptions {
