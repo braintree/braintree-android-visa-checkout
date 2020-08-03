@@ -1,18 +1,20 @@
-apply plugin: 'com.android.library'
-apply plugin: 'maven'
-apply plugin: 'signing'
+plugins {
+    id 'com.android.library'
+    id 'de.marcphilipp.nexus-publish'
+    id 'signing'
+}
 
 android {
-    buildToolsVersion '28.0.3'
-    compileSdkVersion 28
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion '29.0.3'
 
     dataBinding.enabled = true
 
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 28
-        versionCode = rootProject.ext.versionCode
-        versionName = rootProject.ext.versionName
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode rootProject.versionCode
+        versionName rootProject.versionName
 
         consumerProguardFiles 'proguard.pro'
     }
@@ -49,7 +51,8 @@ dependencies {
     testImplementation 'com.squareup.assertj:assertj-android:1.1.1'
 }
 
-/* maven deploy + signing */
+// region signing and publishing
+
 task javadocs(type: Javadoc) {
     source = android.sourceSets.main.java.srcDirs
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
@@ -57,12 +60,12 @@ task javadocs(type: Javadoc) {
 }
 
 task javadocsJar(type: Jar, dependsOn: javadocs) {
-    classifier = 'javadoc'
+    archiveClassifier.set('javadoc')
     from javadocs.destinationDir
 }
 
 task sourcesJar(type: Jar) {
-    classifier = 'sources'
+    archiveClassifier.set('sources')
     from android.sourceSets.main.java.srcDirs
 }
 
@@ -72,68 +75,61 @@ artifacts {
 }
 
 signing {
-    required { !android.defaultConfig.versionName.endsWith("SNAPSHOT") }
-    sign configurations.archives
+    required {
+        !version.endsWith("SNAPSHOT") && !version.endsWith("DEVELOPMENT")
+    }
+    sign publishing.publications
 }
 
-def sonatypeUsername = System.env['SONATYPE_USERNAME']
-def sonatypePassword = System.env['SONATYPE_PASSWORD']
-
-nexusStaging {
-    packageGroup = "com.braintreepayments"
-    delayBetweenRetriesInMillis = 10000
-    username = sonatypeUsername
-    password = sonatypePassword
-}
-
-uploadArchives {
+nexusPublishing {
+    // give nexus sonatype more time to initialize the staging repository
+    clientTimeout = Duration.ofMinutes(3)
     repositories {
-        mavenDeployer {
-            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+        sonatype()
+    }
+}
 
-            repository(url: 'https://oss.sonatype.org/service/local/staging/deploy/maven2/') {
-                authentication(userName: sonatypeUsername, password: sonatypePassword)
-            }
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
 
-            snapshotRepository(url: 'https://oss.sonatype.org/content/repositories/snapshots/') {
-                authentication(userName: sonatypeUsername, password: sonatypePassword)
-            }
-
-            pom.setArtifactId 'visa-checkout'
-
-            pom.project {
-                name 'visa-checkout'
                 groupId = 'com.braintreepayments.api'
-                version = "${android.defaultConfig.versionName}"
-                packaging 'jar'
-                description 'Visa Checkout Module for Braintree\'s Android SDK.'
-                url 'https://github.com/braintree/braintree-android-visa-checkout'
+                artifactId = 'visa-checkout'
+                version = rootProject.versionName
 
-                scm {
-                    url 'scm:git@github.com:braintree/braintree-android-visa-checkout.git'
-                    connection 'scm:git@github.com:braintree/braintree-android-visa-checkout.git'
-                    developerConnection 'scm:git@github.com:braintree/braintree-android-visa-checkout.git'
-                }
+                pom {
+                    name = 'visa-checkout'
+                    packaging = 'jar'
+                    description = 'Visa Checkout Module for Braintree\'s Android SDK.'
+                    url = 'https://github.com/braintree/braintree-android-visa-checkout'
 
-                developers {
-                    developer {
-                        id 'devs'
-                        name 'Braintree Payments'
+                    scm {
+                        url = 'scm:git@github.com:braintree/braintree-android-visa-checkout.git'
+                        connection = 'scm:git@github.com:braintree/braintree-android-visa-checkout.git'
+                        developerConnection = 'scm:git@github.com:braintree/braintree-android-visa-checkout.git'
+                    }
+
+                    developers {
+                        developer {
+                            id = 'devs'
+                            name = 'Braintree Payments'
+                        }
+                    }
+
+                    licenses {
+                        license {
+                            name = 'MIT'
+                            url = 'http://opensource.org/licenses/MIT'
+                            distribution = 'repo'
+                        }
                     }
                 }
-
-                licenses {
-                    license {
-                        name 'MIT'
-                        url 'http://opensource.org/licenses/MIT'
-                        distribution 'repo'
-                    }
-                }
-            }
-
-            pom.whenConfigured {
-                it.dependencies.removeAll { true }
             }
         }
     }
 }
+
+// endregion
+
