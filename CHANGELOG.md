@@ -1,5 +1,10 @@
 # Braintree Android Visa Checkout SDK Release Notes
 
+## unreleased
+
+* Breaking Changes
+  * Increase minSdkVersion to 21
+
 ## 3.0.0
 
 * Convert to AndroidX
