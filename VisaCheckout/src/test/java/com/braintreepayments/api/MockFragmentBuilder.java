@@ -2,7 +2,9 @@ package com.braintreepayments.api;
 
 import android.content.Context;
 
-import com.braintreepayments.api.interfaces.ConfigurationListener;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.test.core.app.ApplicationProvider;
+
 import com.braintreepayments.api.interfaces.HttpResponseCallback;
 import com.braintreepayments.api.internal.BraintreeGraphQLHttpClient;
 import com.braintreepayments.api.internal.BraintreeHttpClient;
@@ -13,9 +15,6 @@ import com.braintreepayments.api.test.TestConfigurationBuilder;
 import org.json.JSONException;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.test.core.app.ApplicationProvider;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;

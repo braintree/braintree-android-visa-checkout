@@ -28,9 +28,9 @@ public class VisaCheckoutClient {
     }
 
     public void createProfileBuilder(Context context, final VisaCheckoutCreateProfileListener listener) {
-        braintreeClient.getConfiguration(context, new ConfigurationListener() {
+        braintreeClient.getConfiguration(context, new ConfigurationCallback() {
             @Override
-            public void onConfigurationFetched(@Nullable Exception e, @Nullable Configuration configuration) {
+            public void onResult(@Nullable Configuration configuration, @Nullable Exception e) {
                 VisaCheckoutConfiguration visaCheckoutConfiguration = configuration.getVisaCheckout();
                 boolean enabledAndSdkAvailable = isVisaCheckoutSDKAvailable() && configuration
                         .getVisaCheckout().isEnabled();
