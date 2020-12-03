@@ -11,7 +11,6 @@ import com.visa.checkout.Profile;
 import com.visa.checkout.Profile.CardBrand;
 import com.visa.checkout.Profile.ProfileBuilder;
 import com.visa.checkout.VisaPaymentSummary;
-import com.visa.checkout.VisaPaymentHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -60,11 +59,11 @@ public class VisaCheckoutUnitTest {
 
         VisaCheckoutClient sut = new VisaCheckoutClient(braintreeClient, tokenizationClient);
 
-        VisaCheckoutCreateProfileListener listener = mock(VisaCheckoutCreateProfileListener.class);
+        VisaCheckoutCreateProfileBuilderCallback listener = mock(VisaCheckoutCreateProfileBuilderCallback.class);
         sut.createProfileBuilder(null, listener);
 
         ArgumentCaptor<ConfigurationException> captor = ArgumentCaptor.forClass(ConfigurationException.class);
-        verify(listener, times(1)).onResult(captor.capture(), null);
+        verify(listener, times(1)).onResult(null, captor.capture());
 
         ConfigurationException configurationException = captor.getValue();
         assertEquals("Visa Checkout is not enabled.", configurationException.getMessage());
@@ -88,9 +87,9 @@ public class VisaCheckoutUnitTest {
                 .build();
         VisaCheckoutClient sut = new VisaCheckoutClient(braintreeClient, tokenizationClient);
 
-        sut.createProfileBuilder(mActivity, new VisaCheckoutCreateProfileListener() {
+        sut.createProfileBuilder(mActivity, new VisaCheckoutCreateProfileBuilderCallback() {
             @Override
-            public void onResult(Exception error, ProfileBuilder profileBuilder) {
+            public void onResult(ProfileBuilder profileBuilder, Exception error) {
                 List<String> expectedCardBrands = Arrays.asList(CardBrand.VISA, CardBrand.MASTERCARD);
                 Profile profile = profileBuilder.build();
                 assertNotNull(profile);
@@ -119,9 +118,9 @@ public class VisaCheckoutUnitTest {
                 .build();
         VisaCheckoutClient sut = new VisaCheckoutClient(braintreeClient, tokenizationClient);
 
-        sut.createProfileBuilder(mActivity, new VisaCheckoutCreateProfileListener() {
+        sut.createProfileBuilder(mActivity, new VisaCheckoutCreateProfileBuilderCallback() {
             @Override
-            public void onResult(Exception error, ProfileBuilder profileBuilder) {
+            public void onResult(ProfileBuilder profileBuilder, Exception error) {
                 List<String> expectedCardBrands = Arrays.asList(CardBrand.VISA, CardBrand.MASTERCARD);
                 Profile profile = profileBuilder.build();
                 assertNotNull(profile);
@@ -146,10 +145,10 @@ public class VisaCheckoutUnitTest {
                 .build();
         VisaCheckoutClient sut = new VisaCheckoutClient(braintreeClient, tokenizationClient);
 
-        VisaCheckoutTokenizeListener listener = mock(VisaCheckoutTokenizeListener.class);
+        VisaCheckoutTokenizeCallback listener = mock(VisaCheckoutTokenizeCallback.class);
         sut.tokenize(mActivity, sampleVisaPaymentSummary(), listener);
 
-        verify(listener).onResult(null, visaCheckoutNonce);
+        verify(listener).onResult(visaCheckoutNonce, null);
     }
 
     @Test
@@ -166,7 +165,7 @@ public class VisaCheckoutUnitTest {
                 .build();
         VisaCheckoutClient sut = new VisaCheckoutClient(braintreeClient, tokenizationClient);
 
-        VisaCheckoutTokenizeListener listener = mock(VisaCheckoutTokenizeListener.class);
+        VisaCheckoutTokenizeCallback listener = mock(VisaCheckoutTokenizeCallback.class);
         sut.tokenize(mActivity, sampleVisaPaymentSummary(), listener);
 
         verify(braintreeClient).sendAnalyticsEvent(mActivity, "visacheckout.tokenize.succeeded");
@@ -184,10 +183,10 @@ public class VisaCheckoutUnitTest {
                 .build();
         VisaCheckoutClient sut = new VisaCheckoutClient(braintreeClient, tokenizationClient);
 
-        VisaCheckoutTokenizeListener listener = mock(VisaCheckoutTokenizeListener.class);
+        VisaCheckoutTokenizeCallback listener = mock(VisaCheckoutTokenizeCallback.class);
         sut.tokenize(mActivity, sampleVisaPaymentSummary(), listener);
 
-        verify(listener).onResult(tokenizeError, null);
+        verify(listener).onResult(null, tokenizeError);
     }
 
     @Test
@@ -202,7 +201,7 @@ public class VisaCheckoutUnitTest {
                 .build();
         VisaCheckoutClient sut = new VisaCheckoutClient(braintreeClient, tokenizationClient);
 
-        VisaCheckoutTokenizeListener listener = mock(VisaCheckoutTokenizeListener.class);
+        VisaCheckoutTokenizeCallback listener = mock(VisaCheckoutTokenizeCallback.class);
         sut.tokenize(mActivity, sampleVisaPaymentSummary(), listener);
 
         verify(braintreeClient).sendAnalyticsEvent(mActivity, "visacheckout.tokenize.failed");

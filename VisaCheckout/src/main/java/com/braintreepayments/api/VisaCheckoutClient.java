@@ -27,7 +27,7 @@ public class VisaCheckoutClient {
         this.tokenizationClient = tokenizationClient;
     }
 
-    public void createProfileBuilder(Context context, final VisaCheckoutCreateProfileListener listener) {
+    public void createProfileBuilder(Context context, final VisaCheckoutCreateProfileBuilderCallback listener) {
         braintreeClient.getConfiguration(context, new ConfigurationCallback() {
             @Override
             public void onResult(@Nullable Configuration configuration, @Nullable Exception e) {
@@ -36,7 +36,7 @@ public class VisaCheckoutClient {
                         .getVisaCheckout().isEnabled();
 
                 if (!enabledAndSdkAvailable) {
-                    listener.onResult(new ConfigurationException("Visa Checkout is not enabled."), null);
+                    listener.onResult(null, new ConfigurationException("Visa Checkout is not enabled."));
                     return;
                 }
 
@@ -53,28 +53,28 @@ public class VisaCheckoutClient {
                 profileBuilder.setDataLevel(Profile.DataLevel.FULL);
                 profileBuilder.setExternalClientId(visaCheckoutConfiguration.getExternalClientId());
 
-                listener.onResult(null, profileBuilder);
+                listener.onResult(profileBuilder, null);
             }
         });
     }
 
-    public void tokenize(final Context context, VisaPaymentSummary visaPaymentSummary, final VisaCheckoutTokenizeListener listener) {
+    public void tokenize(final Context context, VisaPaymentSummary visaPaymentSummary, final VisaCheckoutTokenizeCallback listener) {
         tokenizationClient.tokenize(context, new VisaCheckoutBuilder(visaPaymentSummary), new PaymentMethodNonceCallback() {
             @Override
             public void success(PaymentMethodNonce paymentMethodNonce) {
-                listener.onResult(null, paymentMethodNonce);
+                listener.onResult(paymentMethodNonce, null);
                 braintreeClient.sendAnalyticsEvent(context, "visacheckout.tokenize.succeeded");
             }
 
             @Override
             public void failure(Exception e) {
-                listener.onResult(e, null);
+                listener.onResult(null, e);
                 braintreeClient.sendAnalyticsEvent(context, "visacheckout.tokenize.failed");
             }
         });
     }
 
-    void onActivityResult(Context context, int resultCode, Intent data, VisaCheckoutActivityResultListener listener) {
+    void onActivityResult(Context context, int resultCode, Intent data, VisaCheckoutOnActivityResultCallback listener) {
 
     }
 

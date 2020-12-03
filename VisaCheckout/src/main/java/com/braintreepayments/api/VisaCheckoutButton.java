@@ -22,6 +22,6 @@ public class VisaCheckoutButton extends FrameLayout {
     }
 
     private void initView() {
-        inflate(getContext(), R.layout.visa_checkout_button_wrapper, this);
+//        inflate(getContext(), R.layout.visa_checkout_button_wrapper, this);
     }
 }
