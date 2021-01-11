@@ -28,7 +28,7 @@ public class VisaCheckoutClient {
     }
 
     public void createProfileBuilder(Context context, final VisaCheckoutCreateProfileBuilderCallback listener) {
-        braintreeClient.getConfiguration(context, new ConfigurationCallback() {
+        braintreeClient.getConfiguration(new ConfigurationCallback() {
             @Override
             public void onResult(@Nullable Configuration configuration, @Nullable Exception e) {
                 VisaCheckoutConfiguration visaCheckoutConfiguration = configuration.getVisaCheckout();
@@ -59,17 +59,17 @@ public class VisaCheckoutClient {
     }
 
     public void tokenize(final Context context, VisaPaymentSummary visaPaymentSummary, final VisaCheckoutTokenizeCallback listener) {
-        tokenizationClient.tokenize(context, new VisaCheckoutBuilder(visaPaymentSummary), new PaymentMethodNonceCallback() {
+        tokenizationClient.tokenize(new VisaCheckoutBuilder(visaPaymentSummary), new PaymentMethodNonceCallback() {
             @Override
             public void success(PaymentMethodNonce paymentMethodNonce) {
                 listener.onResult(paymentMethodNonce, null);
-                braintreeClient.sendAnalyticsEvent(context, "visacheckout.tokenize.succeeded");
+                braintreeClient.sendAnalyticsEvent("visacheckout.tokenize.succeeded");
             }
 
             @Override
             public void failure(Exception e) {
                 listener.onResult(null, e);
-                braintreeClient.sendAnalyticsEvent(context, "visacheckout.tokenize.failed");
+                braintreeClient.sendAnalyticsEvent("visacheckout.tokenize.failed");
             }
         });
     }

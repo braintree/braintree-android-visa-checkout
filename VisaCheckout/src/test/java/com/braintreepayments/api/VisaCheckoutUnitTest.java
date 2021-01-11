@@ -168,7 +168,7 @@ public class VisaCheckoutUnitTest {
         VisaCheckoutTokenizeCallback listener = mock(VisaCheckoutTokenizeCallback.class);
         sut.tokenize(mActivity, sampleVisaPaymentSummary(), listener);
 
-        verify(braintreeClient).sendAnalyticsEvent(mActivity, "visacheckout.tokenize.succeeded");
+        verify(braintreeClient).sendAnalyticsEvent("visacheckout.tokenize.succeeded");
     }
 
     @Test
@@ -204,7 +204,7 @@ public class VisaCheckoutUnitTest {
         VisaCheckoutTokenizeCallback listener = mock(VisaCheckoutTokenizeCallback.class);
         sut.tokenize(mActivity, sampleVisaPaymentSummary(), listener);
 
-        verify(braintreeClient).sendAnalyticsEvent(mActivity, "visacheckout.tokenize.failed");
+        verify(braintreeClient).sendAnalyticsEvent("visacheckout.tokenize.failed");
     }
 
     private VisaPaymentSummary sampleVisaPaymentSummary() throws JSONException {

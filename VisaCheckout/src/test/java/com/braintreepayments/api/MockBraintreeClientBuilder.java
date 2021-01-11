@@ -105,9 +105,8 @@ public class MockBraintreeClientBuilder {
         BraintreeClient braintreeClient = mock(BraintreeClient.class);
         when(braintreeClient.getAuthorization()).thenReturn(authorization);
         when(braintreeClient.getSessionId()).thenReturn(sessionId);
-        when(braintreeClient.getIntegrationType(any(Context.class))).thenReturn(integration);
-        when(braintreeClient.isVenmoAppSwitchAvailable(any(Context.class))).thenReturn(venmoAppSwitchAvailable);
-        when(braintreeClient.isUrlSchemeDeclaredInAndroidManifest(any(Context.class), anyString(), any(Class.class))).thenReturn(urlSchemeInAndroidManifest);
+        when(braintreeClient.getIntegrationType()).thenReturn(integration);
+        when(braintreeClient.isUrlSchemeDeclaredInAndroidManifest(anyString(), any(Class.class))).thenReturn(urlSchemeInAndroidManifest);
 
         doAnswer(new Answer<Void>() {
             @Override
@@ -120,7 +119,7 @@ public class MockBraintreeClientBuilder {
                 }
                 return null;
             }
-        }).when(braintreeClient).getConfiguration(any(Context.class), any(ConfigurationCallback.class));
+        }).when(braintreeClient).getConfiguration(any(ConfigurationCallback.class));
 
         doAnswer(new Answer<Void>() {
             @Override
@@ -133,7 +132,7 @@ public class MockBraintreeClientBuilder {
                 }
                 return null;
             }
-        }).when(braintreeClient).sendGET(anyString(), any(Context.class), any(HttpResponseCallback.class));
+        }).when(braintreeClient).sendGET(anyString(), any(HttpResponseCallback.class));
 
         doAnswer(new Answer<Void>() {
             @Override
@@ -146,7 +145,7 @@ public class MockBraintreeClientBuilder {
                 }
                 return null;
             }
-        }).when(braintreeClient).sendPOST(anyString(), anyString(), any(Context.class), any(HttpResponseCallback.class));
+        }).when(braintreeClient).sendPOST(anyString(), anyString(), any(HttpResponseCallback.class));
 
         doAnswer(new Answer<Void>() {
             @Override
@@ -159,7 +158,7 @@ public class MockBraintreeClientBuilder {
                 }
                 return null;
             }
-        }).when(braintreeClient).sendGraphQLPOST(anyString(), any(Context.class), any(HttpResponseCallback.class));
+        }).when(braintreeClient).sendGraphQLPOST(anyString(), any(HttpResponseCallback.class));
 
         return braintreeClient;
     }
