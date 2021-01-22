@@ -6,13 +6,11 @@ import android.widget.FrameLayout;
 
 import androidx.fragment.app.FragmentActivity;
 
-import com.braintreepayments.api.models.PaymentMethodNonce;
 import com.braintreepayments.api.visacheckout.R;
 import com.visa.checkout.CheckoutButton;
 import com.visa.checkout.Profile;
 import com.visa.checkout.PurchaseInfo;
 import com.visa.checkout.VisaCheckoutSdk;
-import com.visa.checkout.VisaPaymentSummary;
 
 public class VisaCheckoutButton extends FrameLayout {
 

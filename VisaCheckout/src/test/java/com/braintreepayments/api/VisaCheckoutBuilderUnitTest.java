@@ -1,7 +1,8 @@
-package com.braintreepayments.api.models;
+package com.braintreepayments.api;
 
 import android.os.Parcel;
 
+import com.braintreepayments.api.VisaCheckoutBuilder;
 import com.visa.checkout.VisaPaymentSummary;
 
 import org.json.JSONException;

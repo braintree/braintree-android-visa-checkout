@@ -1,6 +1,4 @@
-package com.braintreepayments.api.models;
-
-import android.content.Context;
+package com.braintreepayments.api;
 
 import com.visa.checkout.VisaPaymentSummary;
 

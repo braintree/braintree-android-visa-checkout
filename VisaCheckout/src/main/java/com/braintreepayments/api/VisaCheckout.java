@@ -6,7 +6,7 @@
 //import com.braintreepayments.api.interfaces.PaymentMethodNonceCallback;
 //import com.braintreepayments.api.models.Configuration;
 //import com.braintreepayments.api.models.PaymentMethodNonce;
-//import com.braintreepayments.api.models.VisaCheckoutBuilder;
+//import com.braintreepayments.api.VisaCheckoutBuilder;
 //import com.braintreepayments.api.models.VisaCheckoutConfiguration;
 //import com.visa.checkout.Environment;
 //import com.visa.checkout.Profile.DataLevel;

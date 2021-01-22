@@ -2,11 +2,6 @@ package com.braintreepayments.api;
 
 import android.os.Parcel;
 
-import com.braintreepayments.api.exceptions.ConfigurationException;
-import com.braintreepayments.api.models.Configuration;
-import com.braintreepayments.api.models.VisaCheckoutNonce;
-import com.braintreepayments.api.test.TestActivity;
-import com.braintreepayments.api.test.TestConfigurationBuilder;
 import com.visa.checkout.Profile;
 import com.visa.checkout.Profile.CardBrand;
 import com.visa.checkout.Profile.ProfileBuilder;
@@ -25,8 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
-import static com.braintreepayments.api.test.FixturesHelper.stringFromFixture;
-import static com.visa.checkout.VisaPaymentHelper.createPaymentSummary;
+import static com.braintreepayments.api.FixturesHelper.stringFromFixture;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
@@ -218,6 +212,6 @@ public class VisaCheckoutUnitTest {
         in.writeString(summaryJson.toString());
         in.setDataPosition(0);
 
-        return createPaymentSummary(in);
+        return VisaPaymentSummary.CREATOR.createFromParcel(in);
     }
 }
