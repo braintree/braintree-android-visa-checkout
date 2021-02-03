@@ -1,8 +1,5 @@
 package com.braintreepayments.api;
 
-import android.os.Parcel;
-
-import com.braintreepayments.api.VisaCheckoutBuilder;
 import com.visa.checkout.VisaPaymentSummary;
 
 import org.json.JSONException;
@@ -14,7 +11,6 @@ import org.junit.runner.RunWith;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.modules.junit4.rule.PowerMockRule;
 import org.robolectric.RobolectricTestRunner;
 import org.skyscreamer.jsonassert.JSONAssert;

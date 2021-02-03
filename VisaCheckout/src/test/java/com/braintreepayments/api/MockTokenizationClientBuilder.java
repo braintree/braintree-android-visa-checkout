@@ -28,7 +28,7 @@ public class MockTokenizationClientBuilder {
         doAnswer(new Answer<Void>() {
             @Override
             public Void answer(InvocationOnMock invocation) throws Throwable {
-                PaymentMethodNonceCallback listener = (PaymentMethodNonceCallback) invocation.getArguments()[2];
+                PaymentMethodNonceCallback listener = (PaymentMethodNonceCallback) invocation.getArguments()[1];
                 if (successNonce != null) {
                     listener.success(successNonce);
                 } else if (error != null) {

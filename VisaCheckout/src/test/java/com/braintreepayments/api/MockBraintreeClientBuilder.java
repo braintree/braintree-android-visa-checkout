@@ -105,7 +105,7 @@ public class MockBraintreeClientBuilder {
         doAnswer(new Answer<Void>() {
             @Override
             public Void answer(InvocationOnMock invocation) {
-                ConfigurationCallback callback = (ConfigurationCallback) invocation.getArguments()[1];
+                ConfigurationCallback callback = (ConfigurationCallback) invocation.getArguments()[0];
                 if (configuration != null) {
                     callback.onResult(configuration, null);
                 } else if (configurationError != null) {
