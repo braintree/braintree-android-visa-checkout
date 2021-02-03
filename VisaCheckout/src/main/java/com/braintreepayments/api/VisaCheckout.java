@@ -46,11 +46,10 @@ public class VisaCheckout {
      *     </li>
      * </ul>
      *
-     * @param fragment - {@link BraintreeFragment}
-     * @param profileBuilderResponseListener {@link BraintreeResponseListener<ProfileBuilder>} - listens for the
+     * @param callback {@link VisaCheckoutCreateProfileBuilderCallback} - listens for the
      * Braintree flavored {@link ProfileBuilder}.
      */
-    public void createProfileBuilder(Context context, final VisaCheckoutCreateProfileBuilderCallback listener) {
+    public void createProfileBuilder(final VisaCheckoutCreateProfileBuilderCallback callback) {
         braintreeClient.getConfiguration(new ConfigurationCallback() {
             @Override
             public void onResult(@Nullable Configuration configuration, @Nullable Exception e) {
@@ -59,7 +58,7 @@ public class VisaCheckout {
                         .getVisaCheckout().isEnabled();
 
                 if (!enabledAndSdkAvailable) {
-                    listener.onResult(null, new ConfigurationException("Visa Checkout is not enabled."));
+                    callback.onResult(null, new ConfigurationException("Visa Checkout is not enabled."));
                     return;
                 }
 
@@ -76,27 +75,27 @@ public class VisaCheckout {
                 profileBuilder.setDataLevel(Profile.DataLevel.FULL);
                 profileBuilder.setExternalClientId(visaCheckoutConfiguration.getExternalClientId());
 
-                listener.onResult(profileBuilder, null);
+                callback.onResult(profileBuilder, null);
             }
         });
     }
 
     /**
      * Tokenizes the payment summary of the Visa Checkout flow.
-     * @param fragment {@link BraintreeFragment}
      * @param visaPaymentSummary {@link VisaPaymentSummary} The Visa payment to tokenize.
+     * @param callback {@link VisaCheckoutTokenizeCallback}
      */
-    public void tokenize(final Context context, VisaPaymentSummary visaPaymentSummary, final VisaCheckoutTokenizeCallback listener) {
+    public void tokenize(VisaPaymentSummary visaPaymentSummary, final VisaCheckoutTokenizeCallback callback) {
         tokenizationClient.tokenize(new VisaCheckoutBuilder(visaPaymentSummary), new PaymentMethodNonceCallback() {
             @Override
             public void success(PaymentMethodNonce paymentMethodNonce) {
-                listener.onResult(paymentMethodNonce, null);
+                callback.onResult(paymentMethodNonce, null);
                 braintreeClient.sendAnalyticsEvent("visacheckout.tokenize.succeeded");
             }
 
             @Override
             public void failure(Exception e) {
-                listener.onResult(null, e);
+                callback.onResult(null, e);
                 braintreeClient.sendAnalyticsEvent("visacheckout.tokenize.failed");
             }
         });
