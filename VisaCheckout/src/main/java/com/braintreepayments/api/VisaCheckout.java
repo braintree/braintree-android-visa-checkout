@@ -80,6 +80,15 @@ public class VisaCheckout {
         });
     }
 
+    static boolean isVisaCheckoutSDKAvailable() {
+        try {
+            Class.forName("com.visa.checkout.VisaCheckoutSdk");
+            return true;
+        } catch (ClassNotFoundException e) {
+            return false;
+        }
+    }
+
     /**
      * Tokenizes the payment summary of the Visa Checkout flow.
      * @param visaPaymentSummary {@link VisaPaymentSummary} The Visa payment to tokenize.
@@ -103,14 +112,5 @@ public class VisaCheckout {
 
     void onActivityResult(Context context, int resultCode, Intent data, VisaCheckoutOnActivityResultCallback listener) {
 
-    }
-
-    static boolean isVisaCheckoutSDKAvailable() {
-        try {
-            Class.forName("com.visa.checkout.VisaCheckoutSdk");
-            return true;
-        } catch (ClassNotFoundException e) {
-            return false;
-        }
     }
 }
