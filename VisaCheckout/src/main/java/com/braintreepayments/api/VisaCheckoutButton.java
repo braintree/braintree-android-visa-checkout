@@ -12,6 +12,7 @@ import com.visa.checkout.Profile;
 import com.visa.checkout.PurchaseInfo;
 import com.visa.checkout.VisaCheckoutSdk;
 
+// TODO: use this class to wrap visa internal types (will be integrated in separate PR)
 public class VisaCheckoutButton extends FrameLayout {
 
     public VisaCheckoutButton(Context context, AttributeSet attrs, int defStyle) {
