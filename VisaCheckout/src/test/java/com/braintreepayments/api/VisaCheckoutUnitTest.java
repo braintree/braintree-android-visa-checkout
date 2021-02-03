@@ -51,7 +51,7 @@ public class VisaCheckoutUnitTest {
                 .configuration(configuration)
                 .build();
 
-        VisaCheckoutClient sut = new VisaCheckoutClient(braintreeClient, tokenizationClient);
+        VisaCheckout sut = new VisaCheckout(braintreeClient, tokenizationClient);
 
         VisaCheckoutCreateProfileBuilderCallback listener = mock(VisaCheckoutCreateProfileBuilderCallback.class);
         sut.createProfileBuilder(null, listener);
@@ -79,7 +79,7 @@ public class VisaCheckoutUnitTest {
         BraintreeClient braintreeClient = new MockBraintreeClientBuilder()
                 .configuration(Configuration.fromJson(configString))
                 .build();
-        VisaCheckoutClient sut = new VisaCheckoutClient(braintreeClient, tokenizationClient);
+        VisaCheckout sut = new VisaCheckout(braintreeClient, tokenizationClient);
 
         sut.createProfileBuilder(mActivity, new VisaCheckoutCreateProfileBuilderCallback() {
             @Override
@@ -110,7 +110,7 @@ public class VisaCheckoutUnitTest {
         BraintreeClient braintreeClient = new MockBraintreeClientBuilder()
                 .configuration(Configuration.fromJson(configString))
                 .build();
-        VisaCheckoutClient sut = new VisaCheckoutClient(braintreeClient, tokenizationClient);
+        VisaCheckout sut = new VisaCheckout(braintreeClient, tokenizationClient);
 
         sut.createProfileBuilder(mActivity, new VisaCheckoutCreateProfileBuilderCallback() {
             @Override
@@ -137,7 +137,7 @@ public class VisaCheckoutUnitTest {
         BraintreeClient braintreeClient = new MockBraintreeClientBuilder()
                 .configuration(mConfigurationWithVisaCheckout)
                 .build();
-        VisaCheckoutClient sut = new VisaCheckoutClient(braintreeClient, tokenizationClient);
+        VisaCheckout sut = new VisaCheckout(braintreeClient, tokenizationClient);
 
         VisaCheckoutTokenizeCallback listener = mock(VisaCheckoutTokenizeCallback.class);
         sut.tokenize(mActivity, sampleVisaPaymentSummary(), listener);
@@ -157,7 +157,7 @@ public class VisaCheckoutUnitTest {
         BraintreeClient braintreeClient = new MockBraintreeClientBuilder()
                 .configuration(mConfigurationWithVisaCheckout)
                 .build();
-        VisaCheckoutClient sut = new VisaCheckoutClient(braintreeClient, tokenizationClient);
+        VisaCheckout sut = new VisaCheckout(braintreeClient, tokenizationClient);
 
         VisaCheckoutTokenizeCallback listener = mock(VisaCheckoutTokenizeCallback.class);
         sut.tokenize(mActivity, sampleVisaPaymentSummary(), listener);
@@ -175,7 +175,7 @@ public class VisaCheckoutUnitTest {
         BraintreeClient braintreeClient = new MockBraintreeClientBuilder()
                 .configuration(mConfigurationWithVisaCheckout)
                 .build();
-        VisaCheckoutClient sut = new VisaCheckoutClient(braintreeClient, tokenizationClient);
+        VisaCheckout sut = new VisaCheckout(braintreeClient, tokenizationClient);
 
         VisaCheckoutTokenizeCallback listener = mock(VisaCheckoutTokenizeCallback.class);
         sut.tokenize(mActivity, sampleVisaPaymentSummary(), listener);
@@ -193,7 +193,7 @@ public class VisaCheckoutUnitTest {
         BraintreeClient braintreeClient = new MockBraintreeClientBuilder()
                 .configuration(mConfigurationWithVisaCheckout)
                 .build();
-        VisaCheckoutClient sut = new VisaCheckoutClient(braintreeClient, tokenizationClient);
+        VisaCheckout sut = new VisaCheckout(braintreeClient, tokenizationClient);
 
         VisaCheckoutTokenizeCallback listener = mock(VisaCheckoutTokenizeCallback.class);
         sut.tokenize(mActivity, sampleVisaPaymentSummary(), listener);

@@ -11,12 +11,12 @@ import com.visa.checkout.VisaPaymentSummary;
 
 import java.util.List;
 
-public class VisaCheckoutClient {
+public class VisaCheckout {
 
     private BraintreeClient braintreeClient;
     private TokenizationClient tokenizationClient;
 
-    VisaCheckoutClient(BraintreeClient braintreeClient, TokenizationClient tokenizationClient) {
+    VisaCheckout(BraintreeClient braintreeClient, TokenizationClient tokenizationClient) {
         this.braintreeClient = braintreeClient;
         this.tokenizationClient = tokenizationClient;
     }
