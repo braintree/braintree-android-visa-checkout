@@ -6,7 +6,6 @@ import com.visa.checkout.Profile.ProfileBuilder;
 import com.visa.checkout.VisaCheckoutSdk;
 import com.visa.checkout.VisaPaymentSummary;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -157,7 +156,7 @@ public class VisaCheckoutUnitTest {
         VisaCheckout sut = new VisaCheckout(braintreeClient, tokenizationClient);
 
         VisaCheckoutTokenizeCallback listener = mock(VisaCheckoutTokenizeCallback.class);
-        sut.tokenize(sampleVisaPaymentSummary(), listener);
+        sut.tokenize(visaPaymentSummary, listener);
 
         verify(listener).onResult(visaCheckoutNonce, null);
     }
@@ -177,7 +176,7 @@ public class VisaCheckoutUnitTest {
         VisaCheckout sut = new VisaCheckout(braintreeClient, tokenizationClient);
 
         VisaCheckoutTokenizeCallback listener = mock(VisaCheckoutTokenizeCallback.class);
-        sut.tokenize(sampleVisaPaymentSummary(), listener);
+        sut.tokenize(visaPaymentSummary, listener);
 
         verify(braintreeClient).sendAnalyticsEvent("visacheckout.tokenize.succeeded");
     }
@@ -195,7 +194,7 @@ public class VisaCheckoutUnitTest {
         VisaCheckout sut = new VisaCheckout(braintreeClient, tokenizationClient);
 
         VisaCheckoutTokenizeCallback listener = mock(VisaCheckoutTokenizeCallback.class);
-        sut.tokenize(sampleVisaPaymentSummary(), listener);
+        sut.tokenize(visaPaymentSummary, listener);
 
         verify(listener).onResult(null, tokenizeError);
     }
@@ -213,23 +212,8 @@ public class VisaCheckoutUnitTest {
         VisaCheckout sut = new VisaCheckout(braintreeClient, tokenizationClient);
 
         VisaCheckoutTokenizeCallback listener = mock(VisaCheckoutTokenizeCallback.class);
-        sut.tokenize(sampleVisaPaymentSummary(), listener);
+        sut.tokenize(visaPaymentSummary, listener);
 
         verify(braintreeClient).sendAnalyticsEvent("visacheckout.tokenize.failed");
-    }
-
-    private VisaPaymentSummary sampleVisaPaymentSummary() throws JSONException {
-//        JSONObject summaryJson = new JSONObject()
-//                .put("encPaymentData", "stubbedEncPaymentData")
-//                .put("encKey", "stubbedEncKey")
-//                .put("callid", "stubbedCallId");
-//
-//        Parcel in = Parcel.obtain();
-//        in.writeString("SUCCESS");
-//        in.writeString(summaryJson.toString());
-//        in.setDataPosition(0);
-//
-//        return VisaPaymentSummary.CREATOR.createFromParcel(in);
-        return visaPaymentSummary;
     }
 }
