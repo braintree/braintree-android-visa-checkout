@@ -53,6 +53,11 @@ task :release_braintree_visa_checkout do
   puts "Braintree visa checkout module have been released"
 end
 
+desc "Interactive release to publish new version to maven local"
+task :release_local do
+  sh "./gradlew clean publishToMavenLocal"
+end
+
 def prompt_for_sonatype_username_and_password
   puts "Enter Sonatype username:"
   ENV["SONATYPE_USERNAME"] = $stdin.gets.chomp
