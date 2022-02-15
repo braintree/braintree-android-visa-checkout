@@ -26,7 +26,7 @@ dependencies {
 ## Help
 
 * [Read the javadocs](https://javadoc.io/doc/com.braintreepayments.api/visa-checkout/)
-* [Read the docs](https://developer.paypal.com/braintree/docs/guides/secure-remote-commerce/client-side/android/v4)
+* [Read the docs](https://developer.paypal.com/braintree/docs/guides/secure-remote-commerce/client-side/android/v3)
 * Find a bug? [Open an issue](https://github.com/braintree/braintree-android-visa-checkout/issues)
 * Want to contribute? [Check out contributing guidelines](CONTRIBUTING.md) and [submit a pull request](https://help.github.com/articles/creating-a-pull-request).
 
